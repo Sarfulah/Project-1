@@ -1,0 +1,22 @@
+article {
+    float: left;
+    padding: 20px;
+    width: 100%;
+    background-color: #f1f1f1;
+    height: 200px; 
+  }
+.jumbotron {
+    text-align: center;
+    background-color: #12ABE3;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body {  
+    background-image: url(../css/circle\ of\ kids.png)
+}
+.display-4 {
+    font-size: 5.5rem;
+}
+.card {
+    background-color: #12ABE3;
+}
