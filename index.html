@@ -17,8 +17,8 @@
 <body>
     <div class="jumbotron jumbotron-fluid">
         <i class='fas fa-user-md' style='font-size:70px;color:red'></i>
-        <h1 class="display-4">PediShare</h1>
-        <p class="lead">A Network for Parents</p>
+        <h1 class="display-4">JNS DocFinder</h1>
+        <p class="lead">Let us help you find your Specialist!</p>
     </div>
     <div class="container">
         <section>
@@ -26,19 +26,41 @@
                 <div class="card text-white mb-8" style="max-width: 50rem;">
                     <div class="card-header">Symptom Checker</div>
                     <div class="card-body">
-                        <h5 class="card-title">Choose common symptoms</h5>
+                        <form action="/action_page.php">
+                            Age:
+                            <input type="number" name="age" min="0" max="110">
+                        </form>
+                        <br>
+                        <h6>Gender</h6>
+                        <input type="radio" name="gender" value="male"> Male<br>
+                        <input type="radio" name="gender" value="female"> Female<br>
+                        <br>
+                        <h5 class="card-title">What is the child's main symptoms</h5>
+                        <div class="search-container">
+                            <form action="/action_page.php">
+                                <input type="text" placeholder="Search.." name="search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <br>
+                        <h5 class="card-title"> Choose common symptoms</h5>
                         <div id="buttons-view">
+                            <button class="symptom" data-info="cough">Cough</button>
                             <button class="symptom" data-info="diarrhea">Diarrhea</button>
                             <button class="symptom" data-info="fever">Fever</button>
                             <button class="symptom" data-info="tics">Tics</button>
                             <button class="symptom" data-info="rash">Rash</button>
                             <button class="symptom" data-info="vomiting">Vomiting</button>
-
+                            <button class="symptom" data-info="ear infection">Ear Infection</button>
+                            <button class="symptom" data-info="allergies">Allergies</button>
+                            <button class="symptom" data-info="measles">Measles</button>
+                            <button class="symptom" data-info="chickenpox">Chickenpox</button>
                         </div>
+                        <button type="button" class="btn btn-warning">Submit</button>
                         <p class="card-text">Here you will receive a brief summary on the selected issue/ illness.</p>
                     </div>
                 </div>
-                <div class="card text-white mb-4" style="max-width: 20rem;">
+                <div class="card text-white mb-8" style="max-width: 20rem;">
                     <div class="card-header">Related Symptoms</div>
                     <div class="card-body">
                         <h5 class="card-title">Parents also viewed these</h5>
@@ -47,6 +69,7 @@
                 </div>
             </div>
         </section>
+
     </div>
 </body>
 
