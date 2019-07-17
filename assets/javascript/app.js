@@ -1,53 +1,189 @@
-// This code depends on jQuery Core and Handlebars.js 
+const alphabetArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+const currentSession = {}
+
+let init = () => {
+    grabInsuranceList();
 
 
-var resource_url = 'https://healthservice.priaid.ch/symptoms?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5tYXJjaW9uZXNlQGdtYWlsLmNvbSIsInJvbGUiOiJVc2VyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvc2lkIjoiMjcxNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvdmVyc2lvbiI6IjEwOSIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbGltaXQiOiIxMDAiLCJodHRwOi8vZXhhbXBsZS5vcmcvY2xhaW1zL21lbWJlcnNoaXAiOiJCYXNpYyIsImh0dHA6Ly9leGFtcGxlLm9yZy9jbGFpbXMvbGFuZ3VhZ2UiOiJlbi1nYiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvZXhwaXJhdGlvbiI6IjIwOTktMTItMzEiLCJodHRwOi8vZXhhbXBsZS5vcmcvY2xhaW1zL21lbWJlcnNoaXBzdGFydCI6IjIwMTktMDctMTIiLCJpc3MiOiJodHRwczovL2F1dGhzZXJ2aWNlLnByaWFpZC5jaCIsImF1ZCI6Imh0dHBzOi8vaGVhbHRoc2VydmljZS5wcmlhaWQuY2giLCJleHAiOjE1NjMyMjEzOTcsIm5iZiI6MTU2MzIxNDE5N30.lcQU8QBuSWP3MShNwax8y7YRRKbOS8WlR0_ALVsEOj4&format=json&language=en-gb';
+    document.getElementsByClassName('skipBTN')[0].addEventListener('click', function(){
+        switch(currentSession.currentSection){
+            case 'Insurance':
+                document.getElementById('insuranceSection').classList.remove("active");
+                document.getElementById('insuranceSection').classList.add("inactive");
+                document.getElementById('symptomsSection').classList.remove("inactive");
+                document.getElementById('symptomsSection').classList.add("active");
+                document.getElementById('insuranceProviders').style.display = 'none';
+                document.getElementById('symptomsDiv').style.display = 'block';
+                showNextSection('InsuranceDone');
+            break;
+        }
+    });
 
+    document.getElementsByClassName('nextBTN')[0].addEventListener('click', function(){
+        switch(currentSession.currentSection){
+            case 'Insurance':
+                document.getElementById('insuranceSection').classList.remove("active");
+                document.getElementById('insuranceSection').classList.add("inactive");
+                document.getElementById('symptomsSection').classList.remove("inactive");
+                document.getElementById('symptomsSection').classList.add("active");
+                document.getElementById('insuranceProviders').style.display = 'none';
+                document.getElementById('symptomsDiv').style.display = 'block';
+                showNextSection('InsuranceDone');
+            break;
+        }
+    });
+};
 
+let grabInsuranceList = () => {
+    let api_key = '640a0de3d6429a55be1d99d3c6148b19'
+    let insurance_URL = 'https://api.betterdoctor.com/2016-03-01/insurances?user_key='
 
-$(document).ready(function () {
-        console.log("HELLO")
+    getData(insurance_URL + api_key, 'GET', structureInsuranceData);
+};
 
-        // Below is the AJAX equation
-        $.ajax({
-            url: resource_url,
-            method: "GET"
+let structureInsuranceData = (data) => {
+    currentSession.insuranceData = data.data;
+    currentSession.insuranceArray = [];
+    for(let a of data.data){
+        currentSession.insuranceArray.push([a.name, a]);
+    }
+    currentSession.insuranceArray.sort();
 
-            // This function is sequential to AJAX and falls inside the original button click, as does everything below. 
-        }).then(function (response) {
+    displayInsuranceTab();
+};
 
-            // This logs the response from the API, which, when working, should show a lengthy Array of Objects within Objects. 
-            console.log(response);
+let displayInsuranceTab = () => {
+   currentSession.currentSection = 'Insurance';
 
-            // We are assigning the variable SymptomResults to what is pulled from the Array
-            var symptomResults = {
-                "Description": "Flu, also known as influenza, is a viral infection of the nose, sinuses, throat, and respiratory tract.  It’s seasonal, often occurring in winter, and can spread rapidly, called then flu epidemic.",
-                "DescriptionShort": "Flu (often referred as influenza), is a viral infection of the nose, sinuses, throat, and respiratory tract by an influenza or parainfluenza virus.  Swine flu and bird (avian) flu are specific strains of flu.",
-                "MedicalCondition": "When the infection occurs in healthy young people, it is usually not dangerous and lasts around one or two weeks.  In some cases a dry cough may develop and last a bit longer.  Elderly and those with pre-existing illnesses have a higher risk for complications.  For this reason it’s recommended that these groups get vaccinated.  Swine and bird flus are caused by slight different influenza viruses, but causing similar symptoms.  Flu typically develops rapidly, with fever (sometimes accompanied with chills), muscle pain, headache, a dry and painful cough,  sore throat, and exhaustion or fatigue.  It’s important to note that the flu is different from the common cold, which is often also caused by a virus, but causes milder symptoms.",
-                "Name": "Flu",
-                "PossibleSymptoms": "Reduced appetite,Shortness of breath,Eye redness,Sputum,Burning in the throat,Chest pain,Fever,Pain in the limbs,Sore throat,Cough,Headache,Swollen glands on the neck,Swollen glands in the armpits,Tiredness,Runny nose,Sneezing,Chills,Sweating,Stuffy nose",
-                "ProfName": "Influenza",
-                "Synonyms": null,
-                "TreatmentDescription": "Even today flu can have fatal consequences for those with pre-existing conditions and requires a hospital stay with emergency medical measures.  Normally it is self-limited and the body recovers by itself.  A doctor may prescribe medication to help shorten the course of the flu if taken early.  Bed rest and staying hydrated are usually sufficient.  Medications such as Ibuprofen or Aspirin can lower a fever and relieve symptoms, but they will not shorten the course of the illness and should be used in children with caution.  Flu vaccine is recommended for the following groups at risk:  nursing infants, people over 60, people with compromised immune systems, and pregnant women."
-            };
+    for(let a of alphabetArray){
+        let newDiv = document.createElement('div');
+        newDiv.id = a + '_section';
+        newDiv.className = 'insuranceSectionLetter'
+        newDiv.innerHTML = a.toUpperCase();
+        newDiv.setAttribute('data-section', a.toLocaleUpperCase());
+                
+        newDiv.addEventListener('click', function(e){
+            console.log($(this).attr('data-section'))
+            if(currentSession.currentInsuranceSection != $(this).attr('data-section')){
+                setupInsuranceList($(this).attr('data-section'), $(this).attr('data-insurerIndex'));
+            }
+        })
 
+        newDiv.addEventListener('mouseover', function(e){
+            document.getElementById(e.target.id).style.color = 'darkblue';
+        })
 
-            // After click, the below information is added as a child to a new list item
+        newDiv.addEventListener('mouseleave', function(e){
+            document.getElementById(e.target.id).style.color = 'lightblue';
+        })
 
-            var newRow = $("<tr>");
+        document.getElementById('InsuranceAlphabetList').appendChild(newDiv);
+    }
 
-            var symptomName = $("<td>");
-            symptomName.text(symptomResults.name);
+    setupInsuranceList('A');
+}
 
-            var symptomDetails = $("<td>");
-            symptomDetails.text(symptomResults.possiblesymptoms);
-
-            newRow.append(symptomName, symptomDetails);
-            $("tbody").append(newRow);
-
-
-
-
-        });
+let setupInsuranceList = (section) => {
+    document.getElementById('insuranceList').innerHTML = '';
     
-})
+    for(let a = 0; a < currentSession.insuranceArray.length; a++){
+        if(section === currentSession.insuranceArray[a][0].charAt(0).toUpperCase()){
+            let newDiv = document.createElement('div');
+                newDiv.id = currentSession.insuranceArray[a][0];
+                newDiv.setAttribute('data-insuranceUID', currentSession.insuranceArray[a][1].uid);
+                newDiv.setAttribute('data-insurerIndex', a);
+                newDiv.className = 'insurer text-left';
+                newDiv.textContent = currentSession.insuranceArray[a][0]
+                
+                newDiv.addEventListener('click', function(e){
+                    console.log(document.getElementById(e.target.id).getAttribute('data-insuranceUID'));
+                    console.log(document.getElementById(e.target.id).getAttribute('data-insurerIndex'))
+                    
+                    currentSession.selectedInsuranceID_index = document.getElementById(e.target.id).getAttribute('data-insurerIndex');
+                    console.log(currentSession.insuranceArray[currentSession.selectedInsuranceID_index][1].plans)
+                    if(currentSession.insuranceArray[currentSession.selectedInsuranceID_index][1].plans.length > 1){
+                        displayInsuranceSubSection(currentSession.selectedInsuranceID_index);
+                    }else{
+                        currentSession.selectedInsuranceID = currentSession.insuranceArray[currentSession.selectedInsuranceID_index][1].plans[0].uid;
+                        
+                        document.getElementById(e.target.id).style.backgroundColor = 'darkBlue';
+                        document.getElementById('insuranceProviders').children[4].style.display = 'inline-block';
+                    }
+                    document.getElementById('insuranceProviders').children[3].style.display = 'none';
+                    
+                });
+                document.getElementById('insuranceList').append(newDiv);
+        }
+    }
+    document.getElementById('insuranceProviders').children[3].style.display = 'inline-block';
+}
+
+let displayInsuranceSubSection = (index) => {
+    let parentDiv = document.getElementById('insuranceList');
+    parentDiv.innerHTML = '';
+
+    for(let a = 0; a < currentSession.insuranceArray[index][1].plans.length; a++){
+        console.log(currentSession.insuranceArray[index][1].plans[a])
+        if(currentSession.insuranceArray[index][1].plans[a].category[0] === 'medical'){
+            let newDiv = document.createElement('div');
+                newDiv.id = 'subInsurer_' + a;
+                newDiv.setAttribute('data-insuranceUID', currentSession.insuranceArray[index][1].plans[a].uid);
+                newDiv.className = 'subInsurer';
+                newDiv.textContent = currentSession.insuranceArray[index][1].plans[a].name;
+                
+                newDiv.addEventListener('click', function(e){
+                    currentSession.selectedInsuranceID = document.getElementById(e.target.id).getAttribute('data-insuranceUID');
+                    document.getElementById(e.target.id).style.backgroundColor = 'darkBlue';
+                    
+                    document.getElementById('insuranceProviders').children[4].style.display = 'inline-block';
+                    document.getElementById('insuranceProviders').children[3].style.display = 'none';
+                });
+                parentDiv.append(newDiv);
+            }
+    }
+        document.getElementById('insuranceProviders').children[3].style.display = 'inline-block';
+}
+
+let grabSymptomList = () => {
+    let api_key = '640a0de3d6429a55be1d99d3c6148b19'
+    let insurance_URL = 'https://api.betterdoctor.com/2016-03-01/conditions?user_key='
+
+    getData(insurance_URL + api_key, 'GET', structureSymptomData);
+};
+
+let structureSymptomData = (data) => {
+    currentSession.symptomData = data.data;
+    currentSession.symptomArray = [];
+
+    for(let a of data.data){
+        a.name = a.name.charAt(0).toUpperCase() + a.name.slice(1);
+        currentSession.symptomArray.push([a.name, a]);
+    }
+    currentSession.symptomArray.sort();
+
+    displaySymptomData();
+};
+
+let displaySymptomData = () => {
+    
+};
+
+
+let showNextSection = (completedTask) => {
+    switch (completedTask){
+        case 'InsuranceDone':
+            currentSession.currentSection = 'Symptom';
+            grabSymptomList();
+        break;
+    }
+}
+
+let getData = (url, method, callBackFunc) => {
+    $.ajax({
+        url: url,
+        method: method
+    }).then(function(data){
+        callBackFunc(data)
+    });
+}

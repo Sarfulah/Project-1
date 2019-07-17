@@ -5,20 +5,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project-1</title>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
-    <script type="text/javascript" src="assets/javascript/betterdocs.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+        integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link href="./assets/css/styles.css" rel="stylesheet">
+    <script src="./assets/javascript/app.js"></script>
+    <title>Project 1</title>
 </head>
 
 <body>
+    <div class="jumbotron jumbotron-fluid">
+        <i class='fas fa-user-md' style='font-size:70px;color:red'></i>
+        <h1 class="display-4">JNS DocFinder</h1>
+        <p class="lead">Let us help you find your Specialist!</p>
+    </div>
     <div class="container">
-        <h2>Basic List</h2>
-        <p>Table is below</p>
-        <div class="results">
-            
+        <section>
+            <div class="card-group">
+                <div class="card text-white mb-8" style="max-width: 50rem;">
+                    <div class="card-header">Symptom Checker</div>
+                    <div class="card-body">
+                        <form action="/action_page.php">
+                            Age:
+                            <input type="number" name="age" min="0" max="110">
+                        </form>
+                        <br>
+                        <h6>Gender</h6>
+                        <input type="radio" name="gender" value="male"> Male<br>
+                        <input type="radio" name="gender" value="female"> Female<br>
+                        <br>
+                        <h5 class="card-title">What is the child's main symptoms</h5>
+                        <div class="search-container">
+                            <form action="/action_page.php">
+                                <input type="text" placeholder="Search.." name="search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <br>
+                        <h5 class="card-title"> Choose common symptoms</h5>
+                        <div id="buttons-view">
+                            <button class="symptom" data-info="cough">Cough</button>
+                            <button class="symptom" data-info="diarrhea">Diarrhea</button>
+                            <button class="symptom" data-info="fever">Fever</button>
+                            <button class="symptom" data-info="tics">Tics</button>
+                            <button class="symptom" data-info="rash">Rash</button>
+                            <button class="symptom" data-info="vomiting">Vomiting</button>
+                            <button class="symptom" data-info="ear infection">Ear Infection</button>
+                            <button class="symptom" data-info="allergies">Allergies</button>
+                            <button class="symptom" data-info="measles">Measles</button>
+                            <button class="symptom" data-info="chickenpox">Chickenpox</button>
+                        </div>
+                        <button type="button" class="btn btn-warning">Submit</button>
+                        <p class="card-text">Here you will receive a brief summary on the selected issue/ illness.</p>
+                    </div>
+                </div>
+                <div class="card text-white mb-8" style="max-width: 20rem;">
+                    <div class="card-header">Related Symptoms</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Parents also viewed these</h5>
+                        <p class="card-text">Here you will receive a list of related symptoms
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Search By Insurance</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Search By Specialist</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Search By Symptom(s)</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </body>
+
+</html>
+
