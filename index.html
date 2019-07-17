@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
@@ -20,85 +21,31 @@
         <h1 class="display-4">JNS DocFinder</h1>
         <p class="lead">Let us help you find your Specialist!</p>
     </div>
-    <div class="container">
-        <section>
-            <div class="card-group">
-                <div class="card text-white mb-8" style="max-width: 50rem;">
-                    <div class="card-header">Symptom Checker</div>
-                    <div class="card-body">
-                        <form action="/action_page.php">
-                            Age:
-                            <input type="number" name="age" min="0" max="110">
-                        </form>
-                        <br>
-                        <h6>Gender</h6>
-                        <input type="radio" name="gender" value="male"> Male<br>
-                        <input type="radio" name="gender" value="female"> Female<br>
-                        <br>
-                        <h5 class="card-title">What is the child's main symptoms</h5>
-                        <div class="search-container">
-                            <form action="/action_page.php">
-                                <input type="text" placeholder="Search.." name="search">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
-                        </div>
-                        <br>
-                        <h5 class="card-title"> Choose common symptoms</h5>
-                        <div id="buttons-view">
-                            <button class="symptom" data-info="cough">Cough</button>
-                            <button class="symptom" data-info="diarrhea">Diarrhea</button>
-                            <button class="symptom" data-info="fever">Fever</button>
-                            <button class="symptom" data-info="tics">Tics</button>
-                            <button class="symptom" data-info="rash">Rash</button>
-                            <button class="symptom" data-info="vomiting">Vomiting</button>
-                            <button class="symptom" data-info="ear infection">Ear Infection</button>
-                            <button class="symptom" data-info="allergies">Allergies</button>
-                            <button class="symptom" data-info="measles">Measles</button>
-                            <button class="symptom" data-info="chickenpox">Chickenpox</button>
-                        </div>
-                        <button type="button" class="btn btn-warning">Submit</button>
-                        <p class="card-text">Here you will receive a brief summary on the selected issue/ illness.</p>
-                    </div>
-                </div>
-                <div class="card text-white mb-8" style="max-width: 20rem;">
-                    <div class="card-header">Related Symptoms</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Parents also viewed these</h5>
-                        <p class="card-text">Here you will receive a list of related symptoms
-                    </div>
-                </div>
+    <div class="container text-center rounded">
+        <row>
+            <div id='navWrapper'>
+                <ul id='navList' class="nav nav-pills">
+                    <li class="nav-item">
+                    <a class="nav-link active">Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link disabled">Symptoms</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link disabled">Specialist</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link disabled">Find A Doctor</a>
+                    </li>
+                </ul>
             </div>
-        </section>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Search By Insurance</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Search By Specialist</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Search By Symptom(s)</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        </row>
+        <row>
+            <div id='insuranceSection' class='sectionGroup rounded text-left sectionDisplayed'></div>
+            <div id='symptomSection' class='sectionGroup rounded text-left sectionHidden'></div>
+            <div id='specialistSection' class='sectionGroup rounded text-left sectionHidden'></div>
+            <div id='findADoctorSection' class='sectionGroup rounded text-left sectionHidden'></div>
+        </row>
     </div>
 </body>
 
