@@ -9,12 +9,15 @@ let init = () => {
     document.getElementsByClassName('skipBTN')[0].addEventListener('click', function(){
         switch(currentSession.currentSection){
             case 'Insurance':
-                document.getElementById('insuranceSection').classList.remove("active");
-                document.getElementById('insuranceSection').classList.add("inactive");
-                document.getElementById('symptomsSection').classList.remove("inactive");
-                document.getElementById('symptomsSection').classList.add("active");
-                document.getElementById('insuranceProviders').style.display = 'none';
-                document.getElementById('symptomsDiv').style.display = 'block';
+                document.getElementById('insuranceSection').classList.remove("sectionDisplayed");
+                document.getElementById('insuranceSection').classList.add("sectionHidden");
+                document.getElementById('symptomSection').classList.remove("sectionHidden");
+                document.getElementById('symptomSection').classList.add("sectionDisplayed");
+                document.getElementById('navList').children[0].children[0].classList.remove('active');
+                document.getElementById('navList').children[1].children[0].classList.remove('disabled');
+                document.getElementById('navList').children[0].children[0].classList.add('disabled');
+                document.getElementById('navList').children[1].children[0].classList.add('active');
+                
                 showNextSection('InsuranceDone');
             break;
         }
@@ -23,12 +26,15 @@ let init = () => {
     document.getElementsByClassName('nextBTN')[0].addEventListener('click', function(){
         switch(currentSession.currentSection){
             case 'Insurance':
-                document.getElementById('insuranceSection').classList.remove("active");
-                document.getElementById('insuranceSection').classList.add("inactive");
-                document.getElementById('symptomsSection').classList.remove("inactive");
-                document.getElementById('symptomsSection').classList.add("active");
-                document.getElementById('insuranceProviders').style.display = 'none';
-                document.getElementById('symptomsDiv').style.display = 'block';
+                document.getElementById('insuranceSection').classList.remove("sectionDisplayed");
+                document.getElementById('insuranceSection').classList.add("sectionHidden");
+                document.getElementById('symptomSection').classList.remove("sectionHidden");
+                document.getElementById('symptomSection').classList.add("sectionDisplayed");
+                document.getElementById('navList').children[0].children[0].classList.remove('active');
+                document.getElementById('navList').children[1].children[0].classList.remove('disabled');
+                document.getElementById('navList').children[0].children[0].classList.add('disabled');
+                document.getElementById('navList').children[1].children[0].classList.add('active');
+
                 showNextSection('InsuranceDone');
             break;
         }
@@ -105,18 +111,21 @@ let setupInsuranceList = (section) => {
                     if(currentSession.insuranceArray[currentSession.selectedInsuranceID_index][1].plans.length > 1){
                         displayInsuranceSubSection(currentSession.selectedInsuranceID_index);
                     }else{
+                        for(let i = 0; i < document.getElementById('insuranceList').children.length; i++){
+                            document.getElementById('insuranceList').children[i].style.backgroundColor = 'lightblue'
+                        }
                         currentSession.selectedInsuranceID = currentSession.insuranceArray[currentSession.selectedInsuranceID_index][1].plans[0].uid;
                         
                         document.getElementById(e.target.id).style.backgroundColor = 'darkBlue';
-                        document.getElementById('insuranceProviders').children[4].style.display = 'inline-block';
+                        document.getElementById('insuranceSection').children[4].style.display = 'inline-block';
                     }
-                    document.getElementById('insuranceProviders').children[3].style.display = 'none';
+                    document.getElementById('insuranceSection').children[3].style.display = 'none';
                     
                 });
                 document.getElementById('insuranceList').append(newDiv);
         }
     }
-    document.getElementById('insuranceProviders').children[3].style.display = 'inline-block';
+    document.getElementById('insuranceSection').children[3].style.display = 'inline-block';
 }
 
 let displayInsuranceSubSection = (index) => {
@@ -133,16 +142,19 @@ let displayInsuranceSubSection = (index) => {
                 newDiv.textContent = currentSession.insuranceArray[index][1].plans[a].name;
                 
                 newDiv.addEventListener('click', function(e){
+                    for(let i = 0; i < document.getElementById('insuranceList').children.length; i++){
+                        document.getElementById('insuranceList').children[i].style.backgroundColor = 'lightblue'
+                    }
                     currentSession.selectedInsuranceID = document.getElementById(e.target.id).getAttribute('data-insuranceUID');
                     document.getElementById(e.target.id).style.backgroundColor = 'darkBlue';
                     
-                    document.getElementById('insuranceProviders').children[4].style.display = 'inline-block';
-                    document.getElementById('insuranceProviders').children[3].style.display = 'none';
+                    document.getElementById('insuranceSection').children[4].style.display = 'inline-block';
+                    document.getElementById('insuranceSection').children[3].style.display = 'none';
                 });
                 parentDiv.append(newDiv);
             }
     }
-        document.getElementById('insuranceProviders').children[3].style.display = 'inline-block';
+        document.getElementById('insuranceSection').children[3].style.display = 'inline-block';
 }
 
 let grabSymptomList = () => {
@@ -187,3 +199,7 @@ let getData = (url, method, callBackFunc) => {
         callBackFunc(data)
     });
 }
+
+$( document ).ready(function() {
+    init();
+})
