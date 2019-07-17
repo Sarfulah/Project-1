@@ -187,5 +187,3 @@ let getData = (url, method, callBackFunc) => {
         callBackFunc(data)
     });
 }
-
-
