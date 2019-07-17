@@ -14,7 +14,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="./assets/javascript/app.js"></script>
-
     <script src="assets/javascript/betterdocs.js"></script>
     <script src="assets/javascript/zip-search.js"></script>
 
@@ -47,10 +46,37 @@
             </div>
         </row>
         <row>
-            <div id='insuranceSection' class='sectionGroup rounded text-left sectionDisplayed'></div>
-            <div id='symptomSection' class='sectionGroup rounded text-left sectionHidden'></div>
-            <div id='specialistSection' class='sectionGroup rounded text-left sectionHidden'></div>
-            <div id='findADoctorSection' class='sectionGroup rounded text-left sectionHidden'></div>
+            <div id='insuranceSection' class='sectionGroup rounded text-center sectionDisplayed'>
+                <div id='insuranceHeader'><h1 class='h1'>Choose your Insurance Provider</h1></div>
+                <div id='InsuranceAlphabetList'></div>
+                <div id='insuranceList'></div>
+                <button class='skipBTN btn btn-secondary'>Skip Section</button>
+                <button class='nextBTN btn btn-secondary'>Next Section</button>
+            </div>
+            <div id='symptomSection' class='sectionGroup rounded text-center sectionHidden'>
+                <div id='symptomHeader'><h1 class='h1'>Choose your Insurance Provider</h1></div>
+                <div id='symptomAlphabetList'></div>
+                <div id='symptomList'></div>
+                <button class='skipBTN btn btn-secondary'>Skip Section</button>
+                <button class='nextBTN btn btn-secondary'>Next Section</button>
+            </div>
+            <div id='specialistSection' class='sectionGroup rounded text-center sectionHidden'>
+                <div id='specialistHeader'><h1 class='h1'>Choose your Insurance Provider</h1></div>
+                <div id='specialistAlphabetList'></div>
+                <div id='specialistList'></div>
+                <button class='skipBTN btn btn-secondary'>Skip Section</button>
+                <button class='nextBTN btn btn-secondary'>Next Section</button>
+            </div>
+            <div id='findADoctorSection' class='sectionGroup rounded text-center sectionHidden'>
+                <div id='findADoctorHeader'><h1 class='h1'>Find your Doctor</h1></div>
+                <div id='userZipInput'>
+                    <label for="zipCode">Enter Zip Code: </label>
+                    <input type="string" class="form-control" id="userZip" placeholder="Zip">
+                    <button class='findBTN btn btn-secondary'>Find A Doctor</button>
+                </div>
+                <div id='findADoctorGoogleMap'></div>
+                <div id='findADoctorList'></div>
+            </div>
         </row>
     </div>
 </body>
