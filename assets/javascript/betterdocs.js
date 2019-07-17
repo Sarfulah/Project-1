@@ -5,8 +5,10 @@ var resource_url = 'https://api.betterdoctor.com/2016-03-01/doctors?location=39.
 
 var pulledData;
 
+function betterDoctorSearch(){
+    console.log(currentSession)
 $.ajax({
-    url: "https://api.betterdoctor.com/2016-03-01/doctors?location=39.941536%2C-75.199129%2C100&user_location=39.941536%2C-75.199129&skip=0&limit=10&user_key=61f66e9cb52287821fcea95e444242f6",
+    url: 'https://api.betterdoctor.com/2016-03-01/doctors?location=' + currentSession.userLat + "&2C" + currentSession.userLon + '%2C20' + '&user_location=' + currentSession.userLat + '%2C' + currentSession.userLon + '&skip=0&limit=10&user_key=61f66e9cb52287821fcea95e444242f6',
     method: "GET"
 }).then(function (response) {
     console.log(response);
@@ -98,5 +100,6 @@ $.ajax({
         newList.append(doctorNameli, insuranceProviderli, doctorAddressli, licenseSpecsli, mdSpecialtyli, mdRatingli);
         $(".results").append(newList);
     }
-});
 
+});
+}
