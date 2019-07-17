@@ -24,41 +24,42 @@ $.ajax({
         });
         var insuranceProviderUpdated = [...new Set(insuranceProvider)]
 
-        var licenseNumber = []
-        newData[i].licenses.forEach(element => {
-            licenseNumber.push(" " + element.license.number)
-        });
-
-
-
-
         var doctorAddress = []
         newData[i].practices.forEach(element => {
             doctorAddress.push(" " + element.visit_address.city + "-" + element.visit_address.state)
         });
-        // console.log(insuranceName);
         var doctorAddressUpdated = [...new Set(doctorAddress)]
-       
 
-    
-    var newList = $("<ul>");
-    // Should send to browser
-    var doctorNameli = $("<li>").text("Name: " + firstName + " " + lastName);
+        var licenseNumber = []
+        newData[i].licenses.forEach(element => {
+            licenseNumber.push(" " + element.number)
+        });
+        var licenseNumberUpdated = [...new Set(licenseNumber)]
 
-    // Should send to browser with ALL items
-    var insuranceProviderli = $("<li>").text("Health Plans: " + " " + insuranceProviderUpdated);
-    // console.log(insuranceNameli);
 
-       // Should send to browser with ALL items
-       var doctorAddressli = $("<li>").text("Locations: " + " " + doctorAddressUpdated);
-       // console.log(insuranceNameli);
 
-    // Should send to Browser with ALL items
-    // var doctorAddressli = $("<li>").text(doctorCity + ", " + doctorState);
+        
 
-    
 
-    newList.append(doctorNameli, insuranceProviderli, doctorAddressli);
-    $(".results").append(newList);
-}
+
+        var newList = $("<ul>");
+        // Should send to browser
+        var doctorNameli = $("<li>").text("Name: " + firstName + " " + lastName);
+
+        // Should send to browser with ALL items
+        var insuranceProviderli = $("<li>").text("Health Plans: " + " " + insuranceProviderUpdated);
+        // console.log(insuranceNameli);
+
+        // Should send to browser with ALL items
+        var doctorAddressli = $("<li>").text("Locations: " + " " + doctorAddressUpdated);
+        // console.log(insuranceNameli);
+
+        // Should send to browser with ALL items
+        var licenseNumberli = $("<li>").text("License #: " + " " + licenseNumberUpdated);
+        console.log(licenseNumberUpdated);
+
+
+        newList.append(doctorNameli, insuranceProviderli, doctorAddressli, licenseNumberli);
+        $(".results").append(newList);
+    }
 });
