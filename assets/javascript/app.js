@@ -43,7 +43,7 @@ let displayInsuranceTab = () => {
                 if(j == currentSession.insuranceArray.length - 1 && a != firstInsuranceChar) {
                     let newDiv = document.createElement('div');
                     newDiv.innerHTML = a.toUpperCase();
-                    newDiv.style = "display: inline-block; padding: 5px;";
+                    newDiv.className = "insuranceNoLetter";
                     document.getElementById('InsuranceAlphabetList').appendChild(newDiv);
                 } else {
                     if(a == firstInsuranceChar) {
@@ -61,13 +61,13 @@ let displayInsuranceTab = () => {
                             }
                         })
 
-                        newDiv.addEventListener('mouseover', function (e) {
-                            document.getElementById(e.target.id).style.color = 'darkblue';
-                        })
+                        // newDiv.addEventListener('mouseover', function (e) {
+                        //     document.getElementById(e.target.id).style.color = 'darkblue';
+                        // })
 
-                        newDiv.addEventListener('mouseleave', function (e) {
-                            document.getElementById(e.target.id).style.color = 'lightblue';
-                        })
+                        // newDiv.addEventListener('mouseleave', function (e) {
+                        //     document.getElementById(e.target.id).style.color = 'lightblue';
+                        // })
 
 // Found a Match and True
                         foundMatch = true;
@@ -207,7 +207,7 @@ let displaySymptomTab = () => {
                 if(j == currentSession.symptomArray.length - 1 && a != firstSympChar) {
                     let newDiv = document.createElement('div');
                     newDiv.innerHTML = a.toUpperCase();
-                    newDiv.style = "display: inline-block; padding: 5px;";
+                    newDiv.className = "symptomNoLetter";
                     document.getElementById('symptomAlphabetList').appendChild(newDiv);
                 } else {
                     if(a == firstSympChar) {
@@ -225,13 +225,13 @@ let displaySymptomTab = () => {
                             }
                         })
 
-                        newDiv.addEventListener('mouseover', function (e) {
-                            document.getElementById(e.target.id).style.color = 'darkblue';
-                        })
+                        // newDiv.addEventListener('mouseover', function (e) {
+                        //     document.getElementById(e.target.id).style.color = 'darkblue';
+                        // })
 
-                        newDiv.addEventListener('mouseleave', function (e) {
-                            document.getElementById(e.target.id).style.color = 'lightblue';
-                        })
+                        // newDiv.addEventListener('mouseleave', function (e) {
+                        //     document.getElementById(e.target.id).style.color = 'lightblue';
+                        // })
 
                         foundMatch = true;
 
@@ -318,7 +318,7 @@ let displaySpecialistTab = () => {
                 if(j == currentSession.specialistArray.length - 1 && a != firstSpecialistChar) {
                     let newDiv = document.createElement('div');
                     newDiv.innerHTML = a.toUpperCase();
-                    newDiv.style = "display: inline-block; padding: 5px;";
+                    newDiv.className = "specialistNoLetter";
                     document.getElementById('specialistAlphabetList').appendChild(newDiv);
                 } else {
                     if(a == firstSpecialistChar) {
@@ -337,13 +337,13 @@ let displaySpecialistTab = () => {
                         }
                     })
 
-                    newDiv.addEventListener('mouseover', function (e) {
-                        document.getElementById(e.target.id).style.color = 'darkblue';
-                    })
+                    // newDiv.addEventListener('mouseover', function (e) {
+                    //     document.getElementById(e.target.id).style.color = 'darkblue';
+                    // })
 
-                    newDiv.addEventListener('mouseleave', function (e) {
-                        document.getElementById(e.target.id).style.color = 'lightblue';
-                    })
+                    // newDiv.addEventListener('mouseleave', function (e) {
+                    //     document.getElementById(e.target.id).style.color = 'lightblue';
+                    // })
                     foundMatch = true;
                     document.getElementById('specialistAlphabetList').appendChild(newDiv);
                 }

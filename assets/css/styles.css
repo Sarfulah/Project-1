@@ -65,22 +65,38 @@ li{
 .insuranceSectionLetter{
     display: inline-block;
     padding: 5px;
-    color: lightblue;
+    color: red;
     cursor: pointer;
+}
+
+.insuranceNoLetter {
+    display: inline-block;
+    padding: 5px;
+    color: lightblue;
 }
 
 .symptomSectionLetter{
     display: inline-block;
     padding: 5px;
-    color: lightblue;
+    color: red;
     cursor: pointer;
 }
 
-.specialistSectionLetter{
+.symptomNoLetter {
     display: inline-block;
     padding: 5px;
     color: lightblue;
+}
+.specialistSectionLetter{
+    display: inline-block;
+    padding: 5px;
+    color: red;
     cursor: pointer;
+}
+.specialistNoLetter {
+    display: inline-block;
+    padding: 5px;
+    color: lightblue;
 }
 
 .insurer{
