@@ -5,40 +5,7 @@ const currentSession = {}
 let init = () => {
     grabInsuranceList();
 
-
-    document.getElementsByClassName('skipBTN')[0].addEventListener('click', function(){
-        switch(currentSession.currentSection){
-            case 'Insurance':
-                document.getElementById('insuranceSection').classList.remove("sectionDisplayed");
-                document.getElementById('insuranceSection').classList.add("sectionHidden");
-                document.getElementById('symptomSection').classList.remove("sectionHidden");
-                document.getElementById('symptomSection').classList.add("sectionDisplayed");
-                document.getElementById('navList').children[0].children[0].classList.remove('active');
-                document.getElementById('navList').children[1].children[0].classList.remove('disabled');
-                document.getElementById('navList').children[0].children[0].classList.add('disabled');
-                document.getElementById('navList').children[1].children[0].classList.add('active');
-                
-                showNextSection('InsuranceDone');
-            break;
-        }
-    });
-
-    document.getElementsByClassName('nextBTN')[0].addEventListener('click', function(){
-        switch(currentSession.currentSection){
-            case 'Insurance':
-                document.getElementById('insuranceSection').classList.remove("sectionDisplayed");
-                document.getElementById('insuranceSection').classList.add("sectionHidden");
-                document.getElementById('symptomSection').classList.remove("sectionHidden");
-                document.getElementById('symptomSection').classList.add("sectionDisplayed");
-                document.getElementById('navList').children[0].children[0].classList.remove('active');
-                document.getElementById('navList').children[1].children[0].classList.remove('disabled');
-                document.getElementById('navList').children[0].children[0].classList.add('disabled');
-                document.getElementById('navList').children[1].children[0].classList.add('active');
-
-                showNextSection('InsuranceDone');
-            break;
-        }
-    });
+    setupBtnListeners();
 };
 
 let grabInsuranceList = () => {
@@ -72,6 +39,7 @@ let displayInsuranceTab = () => {
         newDiv.addEventListener('click', function(e){
             console.log($(this).attr('data-section'))
             if(currentSession.currentInsuranceSection != $(this).attr('data-section')){
+                currentSession.currentInsuranceSection = $(this).attr('data-section');
                 setupInsuranceList($(this).attr('data-section'), $(this).attr('data-insurerIndex'));
             }
         })
@@ -86,7 +54,7 @@ let displayInsuranceTab = () => {
 
         document.getElementById('InsuranceAlphabetList').appendChild(newDiv);
     }
-
+    currentSession.currentInsuranceSection = 'A';
     setupInsuranceList('A');
 }
 
@@ -174,19 +142,182 @@ let structureSymptomData = (data) => {
     }
     currentSession.symptomArray.sort();
 
-    displaySymptomData();
+    displaySymptomTab();
 };
 
-let displaySymptomData = () => {
+let displaySymptomTab = () => {
+    currentSession.currentSection = 'Symptoms';
+    currentSession.selectedSymptomIDs  = [];
+
+    for(let a of alphabetArray){
+        let newDiv = document.createElement('div');
+        newDiv.id = a + '_Symptom_Section';
+        newDiv.className = 'symptomSectionLetter'
+        newDiv.innerHTML = a.toUpperCase();
+        newDiv.setAttribute('data-section', a.toLocaleUpperCase());
+                
+        newDiv.addEventListener('click', function(e){
+            console.log($(this).attr('data-section'))
+            if(currentSession.currentSymptomSection != $(this).attr('data-section')){
+                currentSession.currentSymptomSection = $(this).attr('data-section');
+                setupSymptomList($(this).attr('data-section'));
+            }
+        })
+
+        newDiv.addEventListener('mouseover', function(e){
+            document.getElementById(e.target.id).style.color = 'darkblue';
+        })
+
+        newDiv.addEventListener('mouseleave', function(e){
+            document.getElementById(e.target.id).style.color = 'lightblue';
+        })
+
+        document.getElementById('symptomAlphabetList').appendChild(newDiv);
+    }
+    currentSession.currentSymptomSection = 'A';
+    setupSymptomList('A');
+};
+
+let setupSymptomList = (section) => {
+    document.getElementById('symptomList').innerHTML = '';
     
+    for(let a = 0; a < currentSession.symptomArray.length; a++){
+        if(section === currentSession.symptomArray[a][0].charAt(0).toUpperCase()){
+            let newDiv = document.createElement('div');
+                newDiv.id = currentSession.symptomArray[a][0];
+                newDiv.setAttribute('data-symptomUID', currentSession.symptomArray[a][1].uid);
+                
+
+                newDiv.className = 'symptomItem text-left';
+                newDiv.textContent = currentSession.symptomArray[a][0]
+                
+                newDiv.addEventListener('click', function(e){
+                    console.log(document.getElementById(e.target.id).getAttribute('data-symptomUID'));
+                        let currentUID = currentSession.selectedSymptomIDs.indexOf(document.getElementById(e.target.id).getAttribute('data-symptomUID'));
+                        console.log(currentUID)
+                        if(currentUID <= -1){
+                            document.getElementById(e.target.id).style.backgroundColor = 'darkBlue';
+                            currentSession.selectedSymptomIDs.push(document.getElementById(e.target.id).getAttribute('data-symptomUID'));
+                        }else{
+                            let index = currentSession.selectedSymptomIDs.indexOf(document.getElementById(e.target.id).getAttribute('data-symptomUID'))
+                            if(index > -1){
+                                currentSession.selectedSymptomIDs.splice(index, 1)
+                            }
+                            document.getElementById(e.target.id).style.backgroundColor = 'lightblue';
+                        }
+                                                
+                        document.getElementById('symptomSection').children[4].style.display = 'inline-block';
+                        document.getElementById('symptomSection').children[3].style.display = 'none';
+                    
+                });
+                document.getElementById('symptomList').append(newDiv);
+        }
+    }
+    document.getElementById('symptomSection').children[3].style.display = 'inline-block';
+}
+
+let grabSpecialistList = () => {
+    let api_key = '640a0de3d6429a55be1d99d3c6148b19'
+    let specialist_URL = 'https://api.betterdoctor.com/2016-03-01/specialties?user_key='
+
+    getData(specialist_URL + api_key, 'GET', structureSpecialistData);
+}
+
+let structureSpecialistData = (data) => {
+    currentSession.specialistData = data.data;
+    currentSession.specialistArray = [];
+
+    for(let a of data.data){
+        a.name = a.name.charAt(0).toUpperCase() + a.name.slice(1);
+        currentSession.specialistArray.push([a.name, a]);
+    }
+    currentSession.specialistArray.sort();
+
+    displaySpecialistTab();
+}
+
+let displaySpecialistTab = () => {
+    currentSession.currentSection = 'Specialist';
+    currentSession.selectedSpecialistIDs  = [];
+
+    for(let a of alphabetArray){
+        let newDiv = document.createElement('div');
+        newDiv.id = a + '_Specialist_Section';
+        newDiv.className = 'specialistSectionLetter'
+        newDiv.innerHTML = a.toUpperCase();
+        newDiv.setAttribute('data-section', a.toLocaleUpperCase());
+                
+        newDiv.addEventListener('click', function(e){
+            console.log($(this).attr('data-section'))
+            if(currentSession.currentSpecialistSection != $(this).attr('data-section')){
+                currentSession.currentSpecialistSection = $(this).attr('data-section');
+                setupSpecialistList($(this).attr('data-section'));
+            }
+        })
+
+        newDiv.addEventListener('mouseover', function(e){
+            document.getElementById(e.target.id).style.color = 'darkblue';
+        })
+
+        newDiv.addEventListener('mouseleave', function(e){
+            document.getElementById(e.target.id).style.color = 'lightblue';
+        })
+
+        document.getElementById('specialistAlphabetList').appendChild(newDiv);
+    }
+    currentSession.currentSpecialistSection = 'A';
+    setupSpecialistList('A');
 };
 
+let setupSpecialistList = (section) => {
+    document.getElementById('specialistList').innerHTML = '';
+    
+    for(let a = 0; a < currentSession.specialistArray.length; a++){
+        if(section === currentSession.specialistArray[a][0].charAt(0).toUpperCase()){
+            let newDiv = document.createElement('div');
+                newDiv.id = currentSession.specialistArray[a][0];
+                newDiv.setAttribute('data-specialistUID', currentSession.specialistArray[a][1].uid);
+                newDiv.className = 'specialistItem text-left';
+                newDiv.textContent = currentSession.specialistArray[a][0]
+                
+                newDiv.addEventListener('click', function(e){
+                    console.log(document.getElementById(e.target.id).getAttribute('data-specialistUID'));
+                        let currentUID = currentSession.selectedSpecialistIDs.indexOf(document.getElementById(e.target.id).getAttribute('data-specialistUID'));
+                        console.log(currentUID)
+                        if(currentUID <= -1){
+                            document.getElementById(e.target.id).style.backgroundColor = 'darkBlue';
+                            currentSession.selectedSpecialistIDs.push(document.getElementById(e.target.id).getAttribute('data-specialistUID'));
+                        }else{
+                            let index = currentSession.selectedSpecialistIDs.indexOf(document.getElementById(e.target.id).getAttribute('data-specialistUID'))
+                            if(index > -1){
+                                currentSession.selectedSpecialistIDs.splice(index, 1)
+                            }
+                            document.getElementById(e.target.id).style.backgroundColor = 'lightblue';
+                        }
+                                                
+                        document.getElementById('specialistSection').children[4].style.display = 'inline-block';
+                        document.getElementById('specialistSection').children[3].style.display = 'none';
+                    
+                });
+                document.getElementById('specialistList').append(newDiv);
+        }
+    }
+    document.getElementById('specialistSection').children[3].style.display = 'inline-block';
+}
 
 let showNextSection = (completedTask) => {
     switch (completedTask){
         case 'InsuranceDone':
             currentSession.currentSection = 'Symptom';
             grabSymptomList();
+        break;
+        case 'SymptomsDone':
+            currentSession.currentSection = 'Specialist';
+            grabSpecialistList();
+        break;
+        case 'SpecialistDone':
+            currentSession.currentSection = 'findADoctor';
+            setupZipSearch();
         break;
     }
 }
@@ -203,3 +334,55 @@ let getData = (url, method, callBackFunc) => {
 $( document ).ready(function() {
     init();
 })
+
+let handleButtonClicks = () => {
+    switch(currentSession.currentSection){
+        case 'Insurance':
+            document.getElementById('insuranceSection').classList.remove("sectionDisplayed");
+            document.getElementById('insuranceSection').classList.add("sectionHidden");
+            document.getElementById('symptomSection').classList.remove("sectionHidden");
+            document.getElementById('symptomSection').classList.add("sectionDisplayed");
+            document.getElementById('navList').children[0].children[0].classList.remove('active');
+            document.getElementById('navList').children[1].children[0].classList.remove('disabled');
+            document.getElementById('navList').children[0].children[0].classList.add('disabled');
+            document.getElementById('navList').children[1].children[0].classList.add('active');
+            
+            showNextSection('InsuranceDone');
+        break;
+        case 'Symptoms':
+            document.getElementById('symptomSection').classList.remove("sectionDisplayed");
+            document.getElementById('symptomSection').classList.add("sectionHidden");
+            document.getElementById('specialistSection').classList.remove("sectionHidden");
+            document.getElementById('specialistSection').classList.add("sectionDisplayed");
+            document.getElementById('navList').children[1].children[0].classList.remove('active');
+            document.getElementById('navList').children[2].children[0].classList.remove('disabled');
+            document.getElementById('navList').children[1].children[0].classList.add('disabled');
+            document.getElementById('navList').children[2].children[0].classList.add('active');
+
+            showNextSection('SymptomsDone');
+        break;
+        case 'Specialist':
+            document.getElementById('specialistSection').classList.remove("sectionDisplayed");
+            document.getElementById('specialistSection').classList.add("sectionHidden");
+            document.getElementById('findADoctorSection').classList.remove("sectionHidden");
+            document.getElementById('findADoctorSection').classList.add("sectionDisplayed");
+            document.getElementById('navList').children[2].children[0].classList.remove('active');
+            document.getElementById('navList').children[3].children[0].classList.remove('disabled');
+            document.getElementById('navList').children[2].children[0].classList.add('disabled');
+            document.getElementById('navList').children[3].children[0].classList.add('active');
+
+            showNextSection('SpecialistDone');
+        break;
+    }
+}
+
+let setupBtnListeners = () => {
+    
+    document.getElementsByClassName('skipBTN')[0].addEventListener('click', handleButtonClicks);
+    document.getElementsByClassName('skipBTN')[1].addEventListener('click', handleButtonClicks);
+    document.getElementsByClassName('skipBTN')[2].addEventListener('click', handleButtonClicks);
+
+    document.getElementsByClassName('nextBTN')[0].addEventListener('click', handleButtonClicks);
+    document.getElementsByClassName('nextBTN')[1].addEventListener('click', handleButtonClicks);
+    document.getElementsByClassName('nextBTN')[2].addEventListener('click', handleButtonClicks);
+}
