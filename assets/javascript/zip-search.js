@@ -2,8 +2,8 @@ let grabZipCodeList = (zipCode = "19428") => {
     let api_key = 'HsVZponJhiYg4vLcjDCPk9Z4REbd09u3nuirubz09YROay3pojqgxtt79OSTllbP'
     let zipCode_URL = 'https://www.zipcodeapi.com/rest/' + api_key + '/info.json/19428/degrees'
 
-    //getData(zipCode_URL + api_key, 'GET', structureZipCodeData);
-    structureZipCodeData(sampleReturn)
+    getData(zipCode_URL + api_key, 'GET', structureZipCodeData);
+    //structureZipCodeData(sampleReturn)
 };
 
 function structureZipCodeData(data){

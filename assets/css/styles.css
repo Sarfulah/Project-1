@@ -151,6 +151,26 @@ li{
     padding-bottom: 25px;
 }
 
+#findADoctorSection{
+    padding-bottom: 20px;
+}
+
 #findADoctorGoogleMap{
     padding-bottom: 25px;
+}
+
+#findADoctorList{
+    width: 90%;
+    margin-left: 5%;
+}
+.doctorHeader{
+    padding-top: 10px;
+}
+.docResult{
+    border: 2px solid lightblue;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
 }
