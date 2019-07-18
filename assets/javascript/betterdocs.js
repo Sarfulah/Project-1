@@ -59,7 +59,7 @@ let structureDoctorsData = (data) => {
 let displayNoDoctors = () => {
     console.log('displayNoDoctors');
     document.getElementById('refineSearch').innerHTML = '';
-    //refineSearch
+    
     let doctorHeader = document.createElement('div');
         doctorHeader.className = 'refineHeader';
         doctorHeader.innerHTML = '<h4 class="h4">Refine Search Results</h4>';
@@ -124,7 +124,8 @@ let displayNoDoctors = () => {
 }
 
 function displayBetterDoctorData(){
-    
+    document.getElementById('findADoctorList').innerHTML = '';
+
     for (var i = 0; i < currentSession.doctorsData.length; i++) {
         console.log(currentSession.doctorsData)
         if(currentSession.doctorsData[i].practices.length > 0){
