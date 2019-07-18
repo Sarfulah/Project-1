@@ -1,6 +1,6 @@
-let grabZipCodeList = (zipCode = "19428") => {
+let grabZipCodeList = (zipCode) => {
     let api_key = "js-ZSReG2aPYYVK0G2uwxKPH27XhlDX3ZLFoxAyBV8c8YCALDA7SlIaVBzsShimBeS5"
-    let zipCode_URL = 'https://www.zipcodeapi.com/rest/' + api_key + '/info.json/19428/degrees'
+    let zipCode_URL = 'https://www.zipcodeapi.com/rest/' + api_key + '/info.json/' + zipCode + '/degrees'
 
     getData(zipCode_URL + api_key, 'GET', structureZipCodeData);
     //structureZipCodeData(sampleReturn)
@@ -21,9 +21,6 @@ let setupZipSearch = () => {
         grabZipCodeList(userZip);
     });
 }
-
-
-
 
 let sampleReturn = {
     "zip_code": "19438",

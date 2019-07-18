@@ -197,32 +197,52 @@ let displaySymptomTab = () => {
     currentSession.selectedSymptomIDs = [];
 
     for (let a of alphabetArray) {
-        let newDiv = document.createElement('div');
-        newDiv.id = a + '_Symptom_Section';
-        newDiv.className = 'symptomSectionLetter'
-        newDiv.innerHTML = a.toUpperCase();
-        newDiv.setAttribute('data-section', a.toLocaleUpperCase());
+        var foundMatch = false;
+        for(var j = 0; j < currentSession.symptomArray.length; j++) {
+            var firstSympChar = currentSession.symptomArray[j][0].charAt(0).toLowerCase();
 
-        newDiv.addEventListener('click', function (e) {
-            console.log($(this).attr('data-section'))
-            if (currentSession.currentSymptomSection != $(this).attr('data-section')) {
-                currentSession.currentSymptomSection = $(this).attr('data-section');
-                setupSymptomList($(this).attr('data-section'));
+            // This is Check to see if there is a Match
+            if(!foundMatch) {
+                // This block checks to see if last company on list and no match, just diaply disabled letter
+                if(j == currentSession.symptomArray.length - 1 && a != firstSympChar) {
+                    let newDiv = document.createElement('div');
+                    newDiv.innerHTML = a.toUpperCase();
+                    newDiv.style = "display: inline-block; padding: 5px;";
+                    document.getElementById('symptomAlphabetList').appendChild(newDiv);
+                } else {
+                    if(a == firstSympChar) {
+                        let newDiv = document.createElement('div');
+                        newDiv.id = a + '_Symptom_Section';
+                        newDiv.className = 'symptomSectionLetter'
+                        newDiv.innerHTML = a.toUpperCase();
+                        newDiv.setAttribute('data-section', a.toLocaleUpperCase());
+
+                        newDiv.addEventListener('click', function (e) {
+                            console.log($(this).attr('data-section'))
+                            if (currentSession.currentSymptomSection != $(this).attr('data-section')) {
+                                currentSession.currentSymptomSection = $(this).attr('data-section');
+                                setupSymptomList($(this).attr('data-section'));
+                            }
+                        })
+
+                        newDiv.addEventListener('mouseover', function (e) {
+                            document.getElementById(e.target.id).style.color = 'darkblue';
+                        })
+
+                        newDiv.addEventListener('mouseleave', function (e) {
+                            document.getElementById(e.target.id).style.color = 'lightblue';
+                        })
+
+                        foundMatch = true;
+
+                        document.getElementById('symptomAlphabetList').appendChild(newDiv);
+                    }
+                }
             }
-        })
-
-        newDiv.addEventListener('mouseover', function (e) {
-            document.getElementById(e.target.id).style.color = 'darkblue';
-        })
-
-        newDiv.addEventListener('mouseleave', function (e) {
-            document.getElementById(e.target.id).style.color = 'lightblue';
-        })
-
-        document.getElementById('symptomAlphabetList').appendChild(newDiv);
+        }
     }
-    currentSession.currentSymptomSection = 'A';
-    setupSymptomList('A');
+        currentSession.currentSymptomSection = 'A';
+        setupSymptomList('A');
 };
 
 let setupSymptomList = (section) => {
@@ -288,30 +308,49 @@ let displaySpecialistTab = () => {
     currentSession.selectedSpecialistIDs = [];
 
     for (let a of alphabetArray) {
-        let newDiv = document.createElement('div');
-        newDiv.id = a + '_Specialist_Section';
-        newDiv.className = 'specialistSectionLetter'
-        newDiv.innerHTML = a.toUpperCase();
-        newDiv.setAttribute('data-section', a.toLocaleUpperCase());
+        var foundMatch = false;
+        for(var j = 0; j < currentSession.specialistArray.length; j++) {
+            var firstSpecialistChar = currentSession.specialistArray[j][0].charAt(0).toLowerCase();
 
-        newDiv.addEventListener('click', function (e) {
-            console.log($(this).attr('data-section'))
-            if (currentSession.currentSpecialistSection != $(this).attr('data-section')) {
-                currentSession.currentSpecialistSection = $(this).attr('data-section');
-                setupSpecialistList($(this).attr('data-section'));
+            // This is Check to see if there is a Match
+            if(!foundMatch) {
+                // This block checks to see if last company on list and no match, just diaply disabled letter
+                if(j == currentSession.specialistArray.length - 1 && a != firstSpecialistChar) {
+                    let newDiv = document.createElement('div');
+                    newDiv.innerHTML = a.toUpperCase();
+                    newDiv.style = "display: inline-block; padding: 5px;";
+                    document.getElementById('specialistAlphabetList').appendChild(newDiv);
+                } else {
+                    if(a == firstSpecialistChar) {
+
+                    let newDiv = document.createElement('div');
+                    newDiv.id = a + '_Specialist_Section';
+                    newDiv.className = 'specialistSectionLetter'
+                    newDiv.innerHTML = a.toUpperCase();
+                    newDiv.setAttribute('data-section', a.toLocaleUpperCase());
+
+                    newDiv.addEventListener('click', function (e) {
+                        console.log($(this).attr('data-section'))
+                        if (currentSession.currentSpecialistSection != $(this).attr('data-section')) {
+                            currentSession.currentSpecialistSection = $(this).attr('data-section');
+                            setupSpecialistList($(this).attr('data-section'));
+                        }
+                    })
+
+                    newDiv.addEventListener('mouseover', function (e) {
+                        document.getElementById(e.target.id).style.color = 'darkblue';
+                    })
+
+                    newDiv.addEventListener('mouseleave', function (e) {
+                        document.getElementById(e.target.id).style.color = 'lightblue';
+                    })
+                    foundMatch = true;
+                    document.getElementById('specialistAlphabetList').appendChild(newDiv);
+                }
             }
-        })
-
-        newDiv.addEventListener('mouseover', function (e) {
-            document.getElementById(e.target.id).style.color = 'darkblue';
-        })
-
-        newDiv.addEventListener('mouseleave', function (e) {
-            document.getElementById(e.target.id).style.color = 'lightblue';
-        })
-
-        document.getElementById('specialistAlphabetList').appendChild(newDiv);
+        }
     }
+}
     currentSession.currentSpecialistSection = 'A';
     setupSpecialistList('A');
 };
