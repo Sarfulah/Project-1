@@ -52,9 +52,6 @@ let structureDoctorsData = (data) => {
     }
 }
 
-
-
-
 function displayBetterDoctorData(){
     
     for (var i = 0; i < currentSession.doctorsData.length; i++) {
