@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
@@ -23,56 +24,67 @@
 
 <body>
     <div class="jumbotron-sm jumbotron-fluid">
-        <i class='fas fa-user-md' style='font-size:70px;color:red'></i>
-        <h1 class="display-4">JNS DocFinder</h1>
-        <p class="lead">Let us help you find your Specialist!</p>
+        <div class="card">
+            <i class='fas fa-user-md' style='font-size:70px;color:red'></i>
+            <h1 class="display-4">JNS DocFinder</h1>
+            <p class="lead">Let us help you find your Specialist!</p>
+        </div>
     </div>
     <div class="container text-center rounded">
         <row>
             <div id='navWrapper'>
                 <ul id='navList' class="nav nav-pills">
                     <li class="nav-item">
-                    <a class="nav-link active">Insurance</a>
+                        <a class="nav-link active">Insurance</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link disabled">Symptoms</a>
+                        <a class="nav-link disabled">Symptoms</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link disabled">Specialist</a>
+                        <a class="nav-link disabled">Specialist</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link disabled">Find A Doctor</a>
+                        <a class="nav-link disabled">Find A Doctor</a>
                     </li>
                 </ul>
             </div>
         </row>
         <row>
             <div id='insuranceSection' class='sectionGroup rounded text-center sectionDisplayed'>
-                <div id='insuranceHeader'><h1 class='h1'>Choose your Insurance Provider</h1></div>
+                <div id='insuranceHeader'>
+                    <h1 class='h1'>Choose your Insurance Provider</h1>
+                </div>
                 <div id='InsuranceAlphabetList'></div>
                 <div id='insuranceList'></div>
                 <button class='skipBTN btn btn-secondary'>Skip Section</button>
                 <button class='nextBTN btn btn-secondary'>Next Section</button>
             </div>
             <div id='symptomSection' class='sectionGroup rounded text-center sectionHidden'>
-                <div id='symptomHeader'><h1 class='h1'>Choose your Symptoms</h1></div>
+                <div id='symptomHeader'>
+                    <h1 class='h1'>Choose your Symptoms</h1>
+                </div>
                 <div id='symptomAlphabetList'></div>
                 <div id='symptomList'></div>
                 <button class='skipBTN btn btn-secondary'>Skip Section</button>
                 <button class='nextBTN btn btn-secondary'>Next Section</button>
             </div>
             <div id='specialistSection' class='sectionGroup rounded text-center sectionHidden'>
-                <div id='specialistHeader'><h1 class='h1'>Need a Specialist</h1></div>
+                <div id='specialistHeader'>
+                    <h1 class='h1'>Need a Specialist</h1>
+                </div>
                 <div id='specialistAlphabetList'></div>
                 <div id='specialistList'></div>
                 <button class='skipBTN btn btn-secondary'>Skip Section</button>
                 <button class='nextBTN btn btn-secondary'>Next Section</button>
             </div>
             <div id='findADoctorSection' class='sectionGroup rounded text-center sectionHidden'>
-                <div id='findADoctorHeader'><h1 class='h1'>Find your Doctor</h1></div>
+                <div id='findADoctorHeader'>
+                    <h1 class='h1'>Find your Doctor</h1>
+                </div>
                 <div id='userZipInput'>
                     <label for="zipCode" class='text-left'>Enter Zipcode: </label>
-                    <input type="string" class="form-control" maxlength="5" minlength="5" id="userZip" placeholder="Enter Zipcode">
+                    <input type="string" class="form-control" maxlength="5" minlength="5" id="userZip"
+                        placeholder="Enter Zipcode">
                     <button class='findBTN btn btn-secondary'>Find A Doctor</button>
                 </div>
                 <div id='refineSearch'></div>
