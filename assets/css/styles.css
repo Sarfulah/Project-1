@@ -1,11 +1,12 @@
 .jumbotron-sm {
     text-align: center;
-    background-color: #12ABE3;
-    color: white;
+    background-image: url(../css/circle\ of\ kids.png);
+    color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     padding-top: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 47px;
     margin-bottom: 35px;
+    background-size: contain;
 }
 .container{
     background-color: #12ABE3;
@@ -14,7 +15,7 @@
 }
 
 body {  
-    background-image: url(../css/circle\ of\ kids.png);
+    background-color: #12ABE3;
     background-attachment: fixed;
 }
 button {
@@ -189,4 +190,10 @@ li{
     margin-bottom: 10px;
     margin-top: 10px;
     border-radius: 10px;
+}
+.card {
+    margin-left: 500px;
+    margin-right: 500px;
+    margin-top: -15px;
+    margin-bottom: -47px;
 }
